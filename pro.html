@@ -1,147 +1,485 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tan | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* CSS หลัก */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sarabun', sans-serif; }
-        body { line-height: 1.6; color: #333; background-color: #f9f9f9; }
-        header { background: #fff; padding: 1rem 10%; position: sticky; top: 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; }
-        nav ul { display: flex; list-style: none; }
-        nav ul li a { text-decoration: none; color: #333; margin-left: 2rem; font-weight: 500; transition: 0.3s; }
-        nav ul li a:hover { color: #6c63ff; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tan | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+      color-scheme: light;
+      --ink: #1f2933;
+      --muted: #697386;
+      --paper: #f7f8fa;
+      --surface: #ffffff;
+      --accent: #2f6fed;
+      --accent-dark: #1f57c7;
+      --line: #e5e8ee;
+      --pink: #c96b92;
+      --purple: #7d78b8;
+      --radius: 10px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sarabun', sans-serif; }
+  html { scroll-behavior: smooth; }
+  body { line-height: 1.7; color: var(--ink); background: var(--paper); }
+  section { scroll-margin-top: 88px; }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+  button { font: inherit; }
 
-        .hero {
-            height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; background: linear-gradient(135deg, #6c63ff 0%, #5146d9 100%); color: white; padding: 0 20px;
-        }
-        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
-        .hero button {
-            padding: 12px 30px; font-size: 1.1rem; background: white; color: #6c63ff;
-            border: none; border-radius: 30px; cursor: pointer; transition: 0.3s; font-weight: bold;
-        }
+  header { position: sticky; top: 0; z-index: 1000; padding: .8rem max(6%, calc((100% - 1180px) / 2)); background: rgba(255,255,255,.94); border-bottom: 1px solid var(--line); box-shadow: 0 2px 14px rgba(31,41,51,.04); backdrop-filter: blur(12px); }
+  nav { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; }
+  nav > div { color: var(--ink) !important; font-family: 'Orbitron', sans-serif; font-size: 1.2rem !important; letter-spacing: .04em; }
+  nav > div::after { content: "_"; color: var(--accent); animation: blink 1s steps(2, start) infinite; }
+  nav ul { display: flex; align-items: center; gap: clamp(.75rem, 2vw, 1.8rem); list-style: none; }
+  nav ul li a { text-decoration: none; color: var(--muted); font-size: .88rem; font-weight: 600; transition: color .2s ease; }
+  nav ul li a:hover { color: var(--accent); }
 
-        #works, #about, #fun-zone, #contact { padding: 5rem 10%; }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
-        .work-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s; }
-        .work-card img { width: 100%; height: 200px; object-fit: cover; background: #eee; }
-        .work-card-content { padding: 20px; }
-        
-        .skills span { display: inline-block; background: #eeeaff; color: #6c63ff; padding: 5px 15px; border-radius: 20px; margin: 5px; font-size: 0.9rem; }
-        footer { text-align: center; padding: 2rem; background: #333; color: white; }
-    </style>
+  .hero { position: relative; isolation: isolate; min-height: min(690px, calc(100vh - 72px)); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; overflow: hidden; padding: 6rem max(8%, calc((100% - 1080px) / 2)); color: var(--ink); background: linear-gradient(135deg, #ffffff 0%, #f2f5fb 100%); border-bottom: 1px solid var(--line); }
+  .hero::before { content: ""; position: absolute; z-index: -1; width: 440px; height: 440px; top: 50%; right: 7%; transform: translateY(-50%); border: 1px solid #dde4ef; border-radius: 50%; background: rgba(47,111,237,.025); }
+  .hero::after { content: ""; }
+  .hero h1 { max-width: 720px; margin: .9rem 0 1rem; font-size: clamp(3.2rem, 7vw, 6.2rem); line-height: 1.12; letter-spacing: -.045em; }
+  .hero p { max-width: 530px; margin-bottom: 2rem; color: var(--muted); font-size: 1.15rem !important; }
+  .hero button, #btn-next { padding: .9rem 1.5rem; border: 1px solid var(--accent); border-radius: 7px; color: #fff; background: var(--accent); box-shadow: none; font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform .2s ease, background .2s ease; }
+  .hero button::after { content: " ↗"; margin-left: .55rem; }
+  .hero button:hover, #btn-next:hover { transform: translateY(-2px); background: var(--accent-dark); box-shadow: 0 8px 18px rgba(47,111,237,.16); }
+  .eyebrow { color: var(--accent); font-family: 'Orbitron', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+  .hero .eyebrow { padding: .35rem .65rem; border: 1px solid #dfe5ef; background: #eef3fb; }
+  .hero > .eyebrow, .hero > h1, .hero > p, .hero > button { animation: spawnIn .7s cubic-bezier(.2,.75,.25,1) both; }
+  .hero > .eyebrow { animation-delay: .08s; }
+  .hero > h1 { animation-delay: .2s; }
+  .hero > p { animation-delay: .34s; }
+  .hero > button { animation-delay: .48s; }
+  .hero h1 .hero-letter { display: inline-block; animation: letterReveal .55s cubic-bezier(.2,.8,.25,1) both; animation-delay: calc(.3s + var(--letter-index) * 45ms); }
+  @keyframes letterReveal { from { opacity: 0; transform: translateY(.55em) rotateX(-75deg); filter: blur(5px); } to { opacity: 1; transform: translateY(0) rotateX(0); filter: blur(0); } }
+  .hero h1, #works h2, #about h2, #fun-zone h2, .work-card h3, .calc-intro h2, #about h3, #quote {
+    transition: color .25s ease, text-shadow .25s ease;
+  }
+  .hero h1:hover, #works h2:hover, #about h2:hover, #fun-zone h2:hover,
+  .work-card h3:hover, .calc-intro h2:hover, #about h3:hover, #quote:hover {
+    color: var(--accent);
+    text-shadow: none;
+  }
+  .text-pop { animation: textPop .42s cubic-bezier(.2,.8,.25,1); }
+  @keyframes textPop {
+    0% { transform: scale(1); text-shadow: 0 0 0 transparent; }
+    45% { transform: scale(1.015); text-shadow: none; }
+    100% { transform: scale(1); text-shadow: 0 0 0 transparent; }
+  }
+  .work-card:active { transform: translateY(-2px) scale(.985); }
+  .motion-ready .reveal { opacity: 0; filter: blur(7px); transform: translateY(42px) scale(.97); transition: opacity .75s ease, filter .75s ease, transform .75s cubic-bezier(.2,.75,.25,1); }
+  .motion-ready .reveal.is-visible { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
+  .motion-ready .work-card:nth-child(2), .motion-ready .work-card-content > *:nth-child(2), .motion-ready .skills span:nth-child(2), .motion-ready .tags span:nth-child(2) { transition-delay: .12s; }
+  .motion-ready .work-card:nth-child(3), .motion-ready .work-card-content > *:nth-child(3), .motion-ready .skills span:nth-child(3), .motion-ready .tags span:nth-child(3) { transition-delay: .24s; }
+  .motion-ready .work-card-content > *:nth-child(4) { transition-delay: .36s; }
+  .motion-ready .work-card.reveal.is-visible:hover { transform: translateY(-6px) scale(1.01); }
+  .motion-ready .work-card.reveal.is-visible:active { transform: translateY(-2px) scale(.985); }
+  @keyframes spawnIn { from { opacity: 0; transform: translateY(22px); filter: blur(5px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+
+  #works, #about, #fun-zone { padding: 6rem max(6%, calc((100% - 1180px) / 2)); }
+  #works > h2, #about > h2, #fun-zone > h2 { margin-bottom: 2.2rem; font-family: 'Sarabun', 'Orbitron', sans-serif; font-size: clamp(1.7rem, 4vw, 2.6rem); letter-spacing: -.035em; }
+  #works > h2::before, #about > h2::before, #fun-zone > h2::before { content: "// "; color: var(--accent); }
+  .grid-container { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2rem; }
+  .work-card { position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 8px 24px rgba(31,41,51,.06); transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+  .work-card::before { content: "PROJECT"; position: absolute; z-index: 1; top: 12px; left: 12px; padding: .2rem .5rem; color: var(--accent); background: rgba(255,255,255,.92); border: 1px solid var(--line); font-family: 'Sarabun', sans-serif; font-size: .58rem; letter-spacing: .08em; }
+  .work-card:hover { transform: translateY(-4px); border-color: #ccd5e4; box-shadow: 0 14px 34px rgba(31,41,51,.10); }
+  .work-card .thumb { height: 190px; display: flex; align-items: center; justify-content: center; font-size: 4.1rem; filter: saturate(.85); }
+  .work-card:nth-child(1) .thumb { background: #edf2ff !important; }
+  .work-card:nth-child(2) .thumb { background: #fff1f5 !important; }
+  .work-card:nth-child(3) .thumb { background: #edf7f3 !important; }
+  .work-card-content { padding: 1.4rem 1.5rem 1.6rem; }
+  .work-card-content h3 { margin-bottom: .45rem; color: var(--ink); font-size: 1.22rem; }
+  .work-card-content p { min-height: 3.3em; color: var(--muted); font-size: .95rem; }
+  .work-card-content a { display: inline-block; margin-top: 1rem; color: var(--accent); font-weight: 700; text-decoration: none; }
+  .work-card-content a::after { content: " →"; }
+  .work-card-content a:hover { color: #fff; }
+
+  #calculator { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 3rem; padding: 6rem max(8%, calc((100% - 1080px) / 2)); color: var(--ink); background: #eef1f5; border-block: 1px solid var(--line); }
+  .calc-intro { max-width: 440px; }
+  .calc-intro h2 { margin: .7rem 0 1rem; font-family: 'Orbitron', 'Sarabun', sans-serif; font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -.035em; }
+  .calc-intro h2::before { content: "✦ "; color: var(--pink); }
+  .calc-intro p { margin-bottom: 1.3rem; color: var(--muted); }
+  .calc-intro .tags span { display: inline-block; margin: 0 .45rem .45rem 0; padding: .25rem .8rem; border: 1px solid var(--line); border-radius: 4px; color: var(--accent); background: #ffffff; font-size: .85rem; }
+  .calculator { --screen-bg: #ffffff; --cream: #f5f6f8; --ink: #242b36; width: min(100%, 320px); padding: 18px 16px 20px; border: 1px solid #dfe3ea; border-radius: 14px; background: #ffffff; box-shadow: 0 16px 40px rgba(31,41,51,.10); }
+  .calculator * { font-family: "Courier New", monospace; }
+  .calculator .brand { display: flex; justify-content: space-between; padding: 2px 6px 12px; color: #7a8290; font-size: 12px; font-weight: bold; letter-spacing: 1.5px; }
+  .calculator .screen { margin-bottom: 14px; padding: 14px; border: 1px solid #dde2e8; border-radius: 7px; background: #fafbfc; }
+  .calculator .expr { min-height: 18px; overflow: hidden; color: #9097a3; font-size: 12px; text-align: right; white-space: nowrap; }
+  .calculator .result { overflow: hidden; padding: 7px 9px 5px; border-radius: 4px; color: var(--ink); background: var(--screen-bg); border: 1px solid #e7eaf0; box-shadow: none; font-size: 34px; font-weight: bold; text-align: right; white-space: nowrap; }
+  .calculator .pad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+  .calculator button { height: 52px; border: 1px solid #e1e5ec; border-radius: 7px; color: var(--ink); background: var(--cream); box-shadow: none; font-size: 17px; font-weight: bold; cursor: pointer; transition: transform .08s ease, background .2s ease; }
+  .calculator button:active { transform: translateY(1px); }
+  .calculator button.fn, .calculator button.op { color: var(--accent); background: #edf2fb; }
+  .calculator button.op:hover, .calculator button.fn:hover { background: #dfe8fa; }
+  .calculator button.equals { grid-column: span 2; color: #fff; background: var(--accent); border-color: var(--accent); }
+
+  #about { background: #ffffff !important; border-top: 1px solid var(--line); }
+  #about > h2 { margin-bottom: 2.5rem !important; }
+  #about > div { max-width: 960px; margin: auto; }
+  #about > div > div:last-child h3 { margin-bottom: .6rem; font-size: 1.6rem; }
+  #about > div > div:last-child p { color: var(--muted); }
+  .skills { margin-top: 1.2rem; }
+  .skills span { display: inline-block; margin: 0 .45rem .45rem 0; padding: .4rem .9rem; border: 1px solid var(--line); border-radius: 4px; color: var(--accent); background: #f7f9fc; font-size: .9rem; }
+  .avatar { width: 100%; aspect-ratio: 1.15; display: flex; align-items: center; justify-content: center; border: 1px solid #e1e5ec; border-radius: var(--radius); background: #eef2f8; box-shadow: none; font-size: clamp(5rem, 12vw, 9rem); }
+
+  #fun-zone { text-align: center; background: #f7f8fa; border-top: 1px solid var(--line); }
+  #fun-zone > h2 { margin-bottom: 0; }
+  .quote-box { max-width: 620px; margin: 2rem auto 0; padding: clamp(2rem, 5vw, 3.5rem); border: 1px solid var(--line); border-radius: var(--radius); background: #ffffff; box-shadow: 0 12px 34px rgba(31,41,51,.07); }
+  #quote { min-height: 100px; display: flex; align-items: center; justify-content: center; color: var(--ink); font-size: clamp(1.35rem, 3vw, 1.8rem); font-weight: 500; transition: opacity .3s; }
+  #btn-next { margin-top: 1.2rem; border-color: var(--ink); color: #fff; background: var(--ink); box-shadow: none; }
+  #btn-next:hover { background: #343f4b; box-shadow: 0 8px 18px rgba(31,41,51,.12); }
+  footer { padding: 2rem; color: var(--muted); background: #ffffff; border-top: 1px solid var(--line); text-align: center; font-size: .9rem; }
+
+  @keyframes blink { to { visibility: hidden; } }
+  @keyframes orbitPulse { 0%, 100% { transform: translateY(-50%) scale(1); } 50% { transform: translateY(-50%) scale(1.045); } }
+  @keyframes thumbBounce { 0%, 100% { transform: translateY(0) rotate(0); } 45% { transform: translateY(-9px) rotate(-5deg); } }
+  .work-card .thumb { transition: filter .35s ease; }
+  .work-card:hover .thumb { filter: saturate(1.2); }
+  .work-card:hover .thumb { animation: thumbBounce .55s ease; }
+  .avatar { transition: transform .35s ease, box-shadow .35s ease; }
+  .avatar:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(31,41,51,.10); }
+  @media (max-width: 800px) {
+    .grid-container { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero::after { right: -3rem; opacity: .08; }
+    #calculator { justify-content: center; }
+    .calc-intro { max-width: 600px; }
+  }
+  @media (max-width: 640px) {
+    header { padding: .8rem 5%; }
+    nav { align-items: flex-start; flex-direction: column; gap: .4rem; }
+    nav ul { width: 100%; overflow-x: auto; gap: 1.15rem; padding: .25rem 0; white-space: nowrap; }
+    nav ul li a { font-size: .85rem; }
+    section { scroll-margin-top: 110px; }
+    .hero { min-height: 600px; padding: 5rem 7%; }
+    .hero h1 { font-size: clamp(3rem, 13vw, 4.2rem); }
+    .hero::before { width: 360px; height: 360px; right: -10rem; }
+    .hero::after { right: -4rem; font-size: 20rem; }
+    #works, #about, #fun-zone, #calculator { padding: 4rem 7%; }
+    .grid-container { grid-template-columns: 1fr; }
+    .work-card .thumb { height: 170px; }
+    #about > div { gap: 2rem !important; }
+    .avatar { aspect-ratio: 1.35; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } .motion-ready .reveal { opacity: 1; transform: none; } }
+</style>
 </head>
 <body>
 
-    <header>
-        <nav>
-            <div class="logo" style="font-weight: bold; font-size: 1.5rem; color: #6c63ff;">Tan.Dev</div>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#works">Works</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#fun-zone">Fun Zone</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+  <nav>
+    <div style="font-weight:bold;font-size:1.5rem;color:#6c63ff;">Tan.Dev</div>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#works">Works</a></li>
+      <li><a href="#calculator">Calculator</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#fun-zone">Fun Zone</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
 
-    <section id="home" class="hero">
-        <h1>สวัสดี, ฉันคือ Tan</h1>
-        <p style="font-size: 1.2rem; margin-bottom: 2rem;">มือใหม่เขียนโค้ดที่พร้อมจะเติมไฟให้โปรเจกต์</p>
-        <button onclick="document.querySelector('#works').scrollIntoView({behavior: 'smooth'})">ดูผลงานของฉัน</button>
-    </section>
+<section id="home" class="hero">
+  <span class="eyebrow">Portfolio · 2026</span>
+  <h1>สวัสดี, ฉันคือ Tan</h1>
+  <p style="font-size:1.2rem;margin-bottom:2rem;">มือใหม่เขียนโค้ดที่พร้อมจะเติมไฟให้โปรเจกต์</p>
+  <button onclick="document.querySelector('#works').scrollIntoView({behavior:'smooth'})">ดูผลงานของฉัน</button>
+</section>
 
-    <section id="works">
-        <h2 style="text-align: center;">ผลงานล่าสุด</h2>
-        <div class="grid-container">
-            <div class="work-card">
-                <div style="background: #FFEFD5; height: 200px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">🔥</div>
-                <div class="work-card-content">
-                    <h3>โปรเจกต์: คำคมมีไฟ</h3>
-                    <p>ระบบสุ่มคำคมให้กำลังใจ </p>
-                    <a href="#fun-zone" style="color: #6c63ff; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 10px;">ลองเล่นโปรเจกต์นี้</a>
-                </div>
-            </div>
-            <div class="work-card">
-                <img src="https://via.placeholder.com/400x250" alt="Work 2">
-                <div class="work-card-content">
-                    <h3>Portfolio Website</h3>
-                    <p>การออกแบบหน้าเว็บส่วนตัวเพื่อรวบรวมทักษะและผลงาน</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="works">
+  <h2 style="text-align:center;">ผลงานล่าสุด</h2>
+  <div class="grid-container">
+    <div class="work-card">
+      <div class="thumb" style="background:#e8e4ff;">🧮</div>
+      <div class="work-card-content">
+        <h3>เครื่องคิดเลข</h3>
+        <p>เครื่องคิดเลขสไตล์ย้อนยุค คำนวณต่อเนื่องได้ และพิมพ์ด้วยคีย์บอร์ดได้</p>
+        <a href="#calculator">ลองใช้เครื่องคิดเลข</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="thumb" style="background:#FFEFD5;">🔥</div>
+      <div class="work-card-content">
+        <h3>โปรเจกต์: คำคมมีไฟ</h3>
+        <p>ระบบสุ่มคำคมให้กำลังใจ</p>
+        <a href="#fun-zone">ลองเล่นโปรเจกต์นี้</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="thumb" style="background:#e3f4ec;">🌐</div>
+      <div class="work-card-content">
+        <h3>Portfolio Website</h3>
+        <p>การออกแบบหน้าเว็บส่วนตัวเพื่อรวบรวมทักษะและผลงาน</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section id="about" style="background: #fff;">
-        <h2 style="text-align: center; margin-bottom: 3rem;">เกี่ยวกับฉัน</h2>
-        <div style="display: flex; flex-wrap: wrap; gap: 3rem; align-items: center;">
-            <div style="flex: 1; min-width: 300px;">
-                <img src="https://via.placeholder.com/400x400" alt="Tan Profile" style="width: 100%; border-radius: 20px; box-shadow: 15px 15px 0px #6c63ff;">
-            </div>
-            <div style="flex: 1; min-width: 300px;">
-                <h3>ยินดีที่ได้รู้จัก!</h3>
-                <p>ผมชื่อ Tan มือใหม่ฝึกเขียนโปรแกรม</p>
-                <div class="skills">
-                    <span>HTML/CSS</span><span>JavaScript</span><span>UI Design</span>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="calculator" class="calc-section">
+  <div class="calc-intro">
+    <h2>เครื่องคิดเลข</h2>
+    <p>ลองกดได้เลย หรือเลื่อนเมาส์มาที่เครื่องคิดเลขแล้วพิมพ์ตัวเลขด้วยคีย์บอร์ด (Enter = เท่ากับ, Esc = ล้างค่า)</p>
+    <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+  </div>
 
-    <section id="fun-zone" style="background: #FFFFCC; text-align: center; border-radius: 50px 50px 0 0;">
-        <h2 style="margin-bottom: 2rem;">ลองเล่น: คำคมมีไฟ</h2>
-        <div style="max-width: 450px; margin: 0 auto; background: #FFEFD5; padding: 3rem 2rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-            <p id="quote" style="font-size: 1.6rem; font-style: italic; color: #333; min-height: 100px; display: flex; align-items: center; justify-content: center;">
-                "ความพยายามอยู่ที่ไหน ความสำเร็จอยูที่นั่น"
-            </p>
-            
-            <button id="btn-next" style="margin-top: 20px; padding: 12px 30px; background: #6c63ff; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s;">
-                สุ่มคำคมใหม่
-            </button>
-        </div>
-    </section>
+  <div class="calculator" id="calc">
+    <div class="brand"><span>CALC·80</span><span>SOLAR</span></div>
+    <div class="screen">
+      <div class="expr" id="expr">&nbsp;</div>
+      <div class="result" id="result">0</div>
+    </div>
+    <div class="pad">
+      <button class="fn" data-action="clear">C</button>
+      <button class="fn" data-action="back" aria-label="ลบ">⌫</button>
+      <button class="fn" data-action="percent">%</button>
+      <button class="op" data-action="op" data-value="÷">÷</button>
 
-    <footer id="contact">
-        <p>&copy; <span id="year"></span> Tan. All rights reserved.</p>
-    </footer>
+      <button data-action="num" data-value="7">7</button>
+      <button data-action="num" data-value="8">8</button>
+      <button data-action="num" data-value="9">9</button>
+      <button class="op" data-action="op" data-value="×">×</button>
 
-    <script>
-        const quotes = [
-            { text: "จงเป็นตัวเองในเวอร์ชันที่ดีที่สุด" },
-            { text: "ชีวิตคือการเรียนรู้ที่ไม่มีวันสิ้นสุด" },
-            { text: "ความล้มเหลวคือโอกาสในการเริ่มใหม่" },
-            { text: "ทำวันนี้ให้ดีที่สุด" }
-        ];
+      <button data-action="num" data-value="4">4</button>
+      <button data-action="num" data-value="5">5</button>
+      <button data-action="num" data-value="6">6</button>
+      <button class="op" data-action="op" data-value="−">−</button>
 
-        const quoteText = document.getElementById("quote");
-        const button = document.getElementById("btn-next");
+      <button data-action="num" data-value="1">1</button>
+      <button data-action="num" data-value="2">2</button>
+      <button data-action="num" data-value="3">3</button>
+      <button class="op" data-action="op" data-value="+">+</button>
 
-        button.addEventListener("click", () => {
-            let randomIndex = Math.floor(Math.random() * quotes.length);
-            
-            // Animation ตอนเปลี่ยน
-            quoteText.style.opacity = 0;
-            setTimeout(() => {
-                quoteText.innerText = `"${quotes[randomIndex].text}"`;
-                quoteText.style.opacity = 1;
-            }, 200);
-        });
-        
-        quoteText.style.transition = "opacity 0.3s";
-        document.getElementById('year').textContent = new Date().getFullYear();
+      <button data-action="num" data-value="0">0</button>
+      <button data-action="dot">.</button>
+      <button class="equals" data-action="equals">=</button>
+    </div>
+  </div>
+</section>
 
-        // Smooth Scroll
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    </script>
+<section id="about" style="background:#fff;">
+  <h2 style="text-align:center;margin-bottom:3rem;">เกี่ยวกับฉัน</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:3rem;align-items:center;">
+    <div style="flex:1;min-width:280px;max-width:400px;"><div class="avatar">👨‍💻</div></div>
+    <div style="flex:1;min-width:280px;">
+      <h3>ยินดีที่ได้รู้จัก!</h3>
+      <p>ผมชื่อ Tan มือใหม่ฝึกเขียนโปรแกรม</p>
+      <div class="skills"><span>HTML/CSS</span><span>JavaScript</span><span>UI Design</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="fun-zone">
+  <h2>ลองเล่น: คำคมมีไฟ</h2>
+  <div class="quote-box">
+    <p id="quote">"ความพยายามอยู่ที่ไหน ความสำเร็จอยู่ที่นั่น"</p>
+    <button id="btn-next">สุ่มคำคมใหม่</button>
+  </div>
+</section>
+
+<footer id="contact">
+  <p>&copy; <span id="year"></span> Tan. All rights reserved.</p>
+</footer>
+
+<script>
+/* ---------- Text and section entrance effects ---------- */
+(function () {
+  const heroTitle = document.querySelector(".hero h1");
+  const titleText = heroTitle.textContent.trim();
+  heroTitle.setAttribute("aria-label", titleText);
+  heroTitle.replaceChildren();
+  const graphemes = "Segmenter" in Intl
+    ? Array.from(new Intl.Segmenter("th", { granularity: "grapheme" }).segment(titleText), (item) => item.segment)
+    : Array.from(titleText);
+  graphemes.forEach((grapheme, index) => {
+    const letter = document.createElement("span");
+    letter.className = "hero-letter";
+    letter.setAttribute("aria-hidden", "true");
+    letter.style.setProperty("--letter-index", index);
+    letter.textContent = grapheme === " " ? "\u00a0" : grapheme;
+    heroTitle.append(letter);
+  });
+
+  const selectors = [
+    "#works > h2", ".work-card",
+    ".work-card-content > *",
+    "#calculator .calc-intro", "#calculator .calculator",
+    "#calculator .tags span",
+    "#about > h2", "#about .avatar", "#about > div > div:last-child", "#about .skills span",
+    "#fun-zone > h2", "#fun-zone .quote-box", "#contact p"
+  ];
+  const elements = document.querySelectorAll(selectors.join(","));
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  document.body.classList.add("motion-ready");
+  elements.forEach((element) => element.classList.add("reveal"));
+
+  if (!("IntersectionObserver" in window)) {
+    elements.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, currentObserver) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        currentObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  elements.forEach((element) => observer.observe(element));
+})();
+
+/* ---------- Text interaction effects ---------- */
+(function () {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.addEventListener("click", (event) => {
+    const text = event.target.closest("h1, h2, h3, p");
+    if (!text) return;
+    text.classList.remove("text-pop");
+    void text.offsetWidth;
+    text.classList.add("text-pop");
+  });
+})();
+
+/* ---------- Portfolio ---------- */
+(function () {
+  const quotes = [
+    "ความพยายามอยู่ที่ไหน ความสำเร็จอยู่ที่นั่น",
+    "จงเป็นตัวเองในเวอร์ชันที่ดีที่สุด",
+    "ชีวิตคือการเรียนรู้ที่ไม่มีวันสิ้นสุด",
+    "ความล้มเหลวคือโอกาสในการเริ่มใหม่",
+    "ทำวันนี้ให้ดีที่สุด"
+  ];
+  const q = document.getElementById("quote");
+  q.dataset.last = quotes[0];
+  document.getElementById("btn-next").addEventListener("click", () => {
+    let i;
+    do { i = Math.floor(Math.random() * quotes.length); } while (quotes[i] === q.dataset.last && quotes.length > 1);
+    q.dataset.last = quotes[i];
+    q.style.opacity = 0;
+    setTimeout(() => {
+      q.textContent = `"${quotes[i]}"`;
+      q.style.opacity = 1;
+      q.classList.remove("text-pop");
+      void q.offsetWidth;
+      q.classList.add("text-pop");
+    }, 200);
+  });
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
+
+/* ---------- Calculator (แยก scope ไม่ชนกับโค้ดอื่น) ---------- */
+(function () {
+  const root = document.getElementById("calc");
+  const exprEl = document.getElementById("expr");
+  const resultEl = document.getElementById("result");
+  const MAX_DIGITS = 12;
+
+  let current = "0", previous = null, operator = null;
+  let justEvaluated = false, awaitingSecond = false, hasError = false;
+
+  function fmt(s) {
+    if (hasError) return s;
+    const neg = s.startsWith("-");
+    const [i, d] = (neg ? s.slice(1) : s).split(".");
+    return (neg ? "-" : "") + i.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (d !== undefined ? "." + d : "");
+  }
+  function show() {
+    resultEl.textContent = fmt(current);
+    exprEl.innerHTML = previous !== null && operator ? fmt(previous) + " " + operator : "&nbsp;";
+    resultEl.style.fontSize = resultEl.textContent.length > 11 ? "24px" : "34px";
+  }
+  function calc(a, op, b) {
+    const x = parseFloat(a), y = parseFloat(b);
+    let r;
+    if (op === "+") r = x + y;
+    else if (op === "−") r = x - y;
+    else if (op === "×") r = x * y;
+    else if (op === "÷") { if (y === 0) return null; r = x / y; }
+    else r = y;
+    return String(parseFloat(r.toPrecision(12)));
+  }
+  function fail() { hasError = true; current = "ผิดพลาด"; previous = operator = null; show(); }
+  function clearAll() { current = "0"; previous = operator = null; justEvaluated = awaitingSecond = hasError = false; show(); }
+
+  function num(d) {
+    if (hasError) clearAll();
+    if (justEvaluated || awaitingSecond) { current = "0"; justEvaluated = awaitingSecond = false; }
+    if (current.replace(/[-.]/g, "").length >= MAX_DIGITS) return;
+    current = current === "0" ? d : current + d;
+    show();
+  }
+  function dot() {
+    if (hasError) clearAll();
+    if (justEvaluated || awaitingSecond) { current = "0"; justEvaluated = awaitingSecond = false; }
+    if (!current.includes(".")) current += ".";
+    show();
+  }
+  function op(o) {
+    if (hasError) return;
+    if (previous !== null && operator && !awaitingSecond) {
+      const r = calc(previous, operator, current);
+      if (r === null) return fail();
+      current = r;
+    }
+    previous = current; operator = o;
+    awaitingSecond = true; justEvaluated = false;
+    show();
+  }
+  function equals() {
+    if (hasError || previous === null || !operator) return;
+    const r = calc(previous, operator, current);
+    if (r === null) return fail();
+    exprEl.textContent = fmt(previous) + " " + operator + " " + fmt(current) + " =";
+    current = r; previous = operator = null;
+    justEvaluated = true; awaitingSecond = false;
+    resultEl.textContent = fmt(current);
+    resultEl.style.fontSize = resultEl.textContent.length > 11 ? "24px" : "34px";
+  }
+  function percent() {
+    if (hasError) return;
+    current = String(parseFloat((parseFloat(current) / 100).toPrecision(12)));
+    show();
+  }
+  function back() {
+    if (hasError) return clearAll();
+    if (justEvaluated || awaitingSecond) return;
+    current = current.length > 1 ? current.slice(0, -1) : "0";
+    if (current === "-") current = "0";
+    show();
+  }
+
+  root.querySelector(".pad").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    const v = b.dataset.value;
+    ({ num: () => num(v), dot, op: () => op(v), equals, percent, back, clear: clearAll })[b.dataset.action]();
+  });
+
+  // คีย์บอร์ดทำงานเฉพาะตอนเมาส์อยู่บนเครื่องคิดเลข (หรือโฟกัสอยู่ในนั้น)
+  let active = false;
+  root.addEventListener("mouseenter", () => active = true);
+  root.addEventListener("mouseleave", () => active = root.contains(document.activeElement));
+  root.addEventListener("focusin", () => active = true);
+  root.addEventListener("focusout", () => active = root.matches(":hover"));
+
+  document.addEventListener("keydown", (e) => {
+    if (!active || e.ctrlKey || e.metaKey || e.altKey) return;
+    const k = e.key;
+    if (/^[0-9]$/.test(k)) num(k);
+    else if (k === "." || k === ",") dot();
+    else if (k === "+") op("+");
+    else if (k === "-") op("−");
+    else if (k === "*") op("×");
+    else if (k === "/") { e.preventDefault(); op("÷"); }
+    else if (k === "%") percent();
+    else if (k === "Enter" || k === "=") { e.preventDefault(); equals(); }
+    else if (k === "Backspace") back();
+    else if (k === "Escape" || k.toLowerCase() === "c") clearAll();
+  });
+
+  show();
+})();
+</script>
 </body>
 </html>
